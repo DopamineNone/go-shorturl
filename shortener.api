@@ -1,0 +1,27 @@
+/*
+*
+*/
+service shortener-api {
+	@handler ConvertHandler
+	post /convert (ConvertRequest) returns (ConvertResponse)
+
+	@handler ShowHandler
+	get /:shortUrl (ShowRequest) returns (ShowResponse)
+}
+
+type ConvertRequest {
+	longUrl string `json: "longUrl"`
+}
+
+type ConvertResponse {
+	shortUrl string `json: "shortUrl"`
+}
+
+type ShowRequest {
+	shortUrl string `path: "shortUrl"`
+}
+
+type ShowResponse {
+	longUrl string `json: "longUrl"`
+}
+

@@ -1,0 +1,10 @@
+Name: shortener-api
+Host: 0.0.0.0
+Port: 8888
+
+ShortUrlDB:
+  DSN: shortener:shortener@tcp(127.0.0.1:3306)/shortener?parseTime=true&charset=utf8mb4
+
+  
+Sequence:
+  DSN: shortener:shortener@tcp(127.0.0.1:3306)/shortener?parseTime=true&charset=utf8mb4
