@@ -103,11 +103,6 @@ func (l *ConvertLogic) Convert(req *types.ConvertRequest) (resp *types.ConvertRe
 		}
 	}
 	// 4. store the map between the long and the short url
-	shortUrl, err = url.JoinPath(l.domainName, shortUrl)
-	if err != nil {
-		logx.Errorw("url.JoinPath failed", logx.LogField{Key: "err", Value: err.Error()})
-		return nil, ErrorInternal
-	}
 	_, err = l.svcCtx.ShortUrlModel.Insert(
 		l.ctx,
 		&model.ShortUrlMap{
@@ -121,6 +116,11 @@ func (l *ConvertLogic) Convert(req *types.ConvertRequest) (resp *types.ConvertRe
 		return nil, ErrorInternal
 	}
 	// 5. response
+	shortUrl, err = url.JoinPath(l.domainName, shortUrl)
+	if err != nil {
+		logx.Errorw("url.JoinPath failed", logx.LogField{Key: "err", Value: err.Error()})
+		return nil, ErrorInternal
+	}
 	return &types.ConvertResponse{
 		ShortUrl: shortUrl,
 	}, nil
