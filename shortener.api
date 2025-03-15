@@ -10,18 +10,18 @@ service shortener-api {
 }
 
 type ConvertRequest {
-	longUrl string `json: "longUrl"`
+	longUrl string `json:"longUrl" validate:"required"`
 }
 
 type ConvertResponse {
-	shortUrl string `json: "shortUrl"`
+	shortUrl string `json:"shortUrl"`
 }
 
 type ShowRequest {
-	shortUrl string `path: "shortUrl"`
+	shortUrl string `path:"shortUrl" validate:"required"`
 }
 
 type ShowResponse {
-	longUrl string `json: "longUrl"`
+	longUrl string `json:"longUrl"`
 }
 

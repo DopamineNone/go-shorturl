@@ -3,10 +3,12 @@ package handler
 import (
 	"net/http"
 
-	"github.com/zeromicro/go-zero/rest/httpx"
 	"go-shorturl/internal/logic"
 	"go-shorturl/internal/svc"
 	"go-shorturl/internal/types"
+
+	"github.com/go-playground/validator/v10"
+	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 func ConvertHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
@@ -15,6 +17,12 @@ func ConvertHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return
+		}
+
+		// param validation
+		if err := validator.New().StructCtx(r.Context(), req); err != nil {
+			httpx.ErrorCtx(r.Context(), w, err)
+			return 
 		}
 
 		l := logic.NewConvertLogic(r.Context(), svcCtx)
